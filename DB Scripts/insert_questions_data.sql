@@ -18,3 +18,9 @@ INSERT INTO ROOT.TRIVIADBTEST (ID, QUESTION, WAS, ANSWER1, ANSWER2, ANSWER3, ANS
 	VALUES (1, 'How many Stars there are in the USA flag?', false, '26', '51', '42', '35', 2);
 INSERT INTO ROOT.TRIVIADBTEST (ID, QUESTION, WAS, ANSWER1, ANSWER2, ANSWER3, ANSWER4, CORRECT_ANSWER) 
 	VALUES (2, 'What is the capital city of ISrael?', false, 'Eilat', 'Hebron', 'Jerusalem', 'Tel Aviv', 3);
+INSERT INTO ROOT.TRIVIADBTEST (ID, QUESTION, WAS, ANSWER1, ANSWER2, ANSWER3, ANSWER4, CORRECT_ANSWER) 
+	VALUES (3, 'How many letters there are in the english language?', false, '26', '20', '23', '22', 1);
+INSERT INTO ROOT.TRIVIADBTEST (ID, QUESTION, WAS, ANSWER1, ANSWER2, ANSWER3, ANSWER4, CORRECT_ANSWER) 
+	VALUES (4, 'How many grams there are in 1 kilogram has?', false, '100', '500', '1000', '10', 3);
+INSERT INTO ROOT.TRIVIADBTEST (ID, QUESTION, WAS, ANSWER1, ANSWER2, ANSWER3, ANSWER4, CORRECT_ANSWER) 
+	VALUES (5, 'What are the three primary colors?', false, 'Green,Yellow,Red', 'Yellow,Red,Blue', 'Red,Green,Blue', 'None of the answer', 2);
