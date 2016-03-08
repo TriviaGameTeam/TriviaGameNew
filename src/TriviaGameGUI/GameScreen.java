@@ -27,6 +27,7 @@ public class GameScreen extends JFrame implements ActionListener {
     private JRadioButton answer4;
     private ButtonGroup buttongroup;
     Font font = new Font("Serif", Font.BOLD, 40);
+    int countPoints=0;
 
     Question question;
     //  int remainedQuestions;
@@ -84,16 +85,23 @@ public class GameScreen extends JFrame implements ActionListener {
         boolean correct = false;
         
             if (buttongroup.getSelection() == answer1 && question.getRightAnswer() == 1) {
+              
                 correct = true;
+                
             } else if (buttongroup.getSelection() == answer2 && question.getRightAnswer() == 2) {
+               
                 correct = true;
             } else if (buttongroup.getSelection() == answer3 && question.getRightAnswer() == 3) {
+               
                 correct = true;
             } else if (buttongroup.getSelection() == answer4 && question.getRightAnswer() == 4) {
+              
                 correct = true;
             }
             if (correct) {
                 //send to DB += question points
+               countPoints+=question.getPoints();
+                System.out.println("Now you have "+countPoints+" points.");
             }
             
            

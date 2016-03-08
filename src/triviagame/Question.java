@@ -38,6 +38,7 @@ public class Question {
     }
 
     public int getRightAnswer() {
+        
         return rightAnswer;
     }
 

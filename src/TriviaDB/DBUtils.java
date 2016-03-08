@@ -46,6 +46,7 @@ public class DBUtils {
                 Question q = new Question(question, answers, 10, rightAns);
                 allQuestions.add(q);
                 System.out.println(question);
+                System.out.println(rightAns);
             }
             results.close();
          } catch (Exception ex) {
