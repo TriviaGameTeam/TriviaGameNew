@@ -9,7 +9,7 @@ package TriviaGameGUI;
  *
  * @author NaorHaguli
  */
-import TriviaGame.playGame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

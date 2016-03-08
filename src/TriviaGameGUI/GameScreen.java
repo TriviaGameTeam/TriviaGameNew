@@ -2,7 +2,6 @@ package TriviaGameGUI;
 
 import TriviaGame.GameLogic;
 import TriviaGame.Question;
-import TriviaGame.playGame;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
