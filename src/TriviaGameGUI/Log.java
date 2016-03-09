@@ -38,18 +38,43 @@ public class Log extends JFrame {
 
         getContentPane().add(panel);
         userAns.requestFocusInWindow();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         actionlogin();
+        addListeners();
     }
-
+        public void addListeners()
+    { 
+        this.addWindowListener(new MyWindowListener());
+    }
+    class MyWindowListener extends WindowAdapter
+    {
+           /* All other 6 methods of the listener were already implemented in the 
+            * WindowAdapter
+            */
+        @Override
+        public void windowClosing(WindowEvent we) {
+                showExitDialog();
+        }
+    }
+    
+    public void showExitDialog()
+    {
+         int result = JOptionPane.showConfirmDialog(Log.this,         // parent component
+                                        "Are you sure you want to quit?", // message
+                                        "Exit Dialog",      // title of the dialog box
+                                        JOptionPane.YES_NO_OPTION,// indicates buttons ot display
+                                        JOptionPane.QUESTION_MESSAGE);
+                                        //null);//new ImageIcon("images/questionmark.png")); 
+            if(result == JOptionPane.YES_OPTION)
+                System.exit(0);
+            
+    }
     public void actionlogin() {
         blogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 int ans = Integer.valueOf(userAns.getText()); //the max questions that the client can answer
                 if (ans > 0 && ans <= 15) {
-                   // playGame pGame;
-                    //pGame = new playGame(Integer.valueOf(userAns.getText()));
                     GameScreen mainScreen = new GameScreen(ans);
                     
                     dispose();

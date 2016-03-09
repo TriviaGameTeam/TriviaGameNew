@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-
 
 public class GameScreen extends JFrame implements ActionListener {
 
@@ -27,17 +28,14 @@ public class GameScreen extends JFrame implements ActionListener {
     private JRadioButton answer4;
     private ButtonGroup buttongroup;
     Font font = new Font("Serif", Font.BOLD, 40);
-    int countPoints=0;
+    int countPoints = 0;
 
     Question question;
-    //  int remainedQuestions;
-    
-    
 
     public GameScreen(int numQuestions) {
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Trivia Game - By Meitar Cohen");
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setTitle("Trivia Game - By Meitar Cohen & Naor Haguli");
         this.setVisible(true);
         setSize(1000, 800);
         setLocationRelativeTo(null);
@@ -45,7 +43,7 @@ public class GameScreen extends JFrame implements ActionListener {
 
         this.add(questionContent, BorderLayout.NORTH);
         questionContent.setFont(font);
-        
+
         answer1 = new JRadioButton("Answer #1");
         answer2 = new JRadioButton("Answer #2");
         answer3 = new JRadioButton("Answer #3");
@@ -77,67 +75,79 @@ public class GameScreen extends JFrame implements ActionListener {
         answer2.setText(question.getAnswers()[1]);
         answer3.setText(question.getAnswers()[2]);
         answer4.setText(question.getAnswers()[3]);
+        addListeners();
+    }
+
+    public void addListeners() {
+        this.addWindowListener(new MyWindowListener());
+    }
+
+    class MyWindowListener extends WindowAdapter {
+
+        /* All other 6 methods of the listener were already implemented in the 
+            * WindowAdapter
+         */
+        @Override
+        public void windowClosing(WindowEvent we) {
+            showExitDialog();
+        }
+    }
+
+    public void showExitDialog() {
+        int result = JOptionPane.showConfirmDialog(GameScreen.this, // parent component
+                "Are you sure you want to quit?", // message
+                "Exit Dialog", // title of the dialog box
+                JOptionPane.YES_NO_OPTION,// indicates buttons ot display
+                JOptionPane.QUESTION_MESSAGE);
+        //null);//new ImageIcon("images/questionmark.png")); 
+        if (result == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         boolean correct = false;
-        
-            if (buttongroup.getSelection() == answer1 && question.getRightAnswer() == 1) {
-              
-                correct = true;
-                
-            } else if (buttongroup.getSelection() == answer2 && question.getRightAnswer() == 2) {
-               
-                correct = true;
-            } else if (buttongroup.getSelection() == answer3 && question.getRightAnswer() == 3) {
-               
-                correct = true;
-            } else if (buttongroup.getSelection() == answer4 && question.getRightAnswer() == 4) {
-              
-                correct = true;
-            }
-            if (correct) {
-                //send to DB += question points
-               countPoints+=question.getPoints();
-                System.out.println("Now you have "+countPoints+" points.");
-            }
+
+        if (answer1.isSelected() && question.getRightAnswer() == 1) {
+            correct = true;
+        } else if (answer2.isSelected() && question.getRightAnswer() == 2) {
+            correct = true;
+        } else if (answer3.isSelected() && question.getRightAnswer() == 3) {
+            correct = true;
+        } else if (answer4.isSelected() && question.getRightAnswer() == 4) {
+            correct = true;
+        }
+        if (correct) {
+            //send to DB question points
+            countPoints += question.getPoints();
+            System.out.println("Now you have " + countPoints + " points.");
+        }
+
+        gameLogic.moveToNextQuestion();
+
+        // check if the game is over - if it is over - show a message dialog
+        // if not - continue to the next question
+        if (gameLogic.isGameOver()) {
+            dispose();
+            setVisible(false);
+            JOptionPane.showMessageDialog(this, "Game is Over!!\n Your Points is: "+countPoints+"!");
             
-           
-            gameLogic.moveToNextQuestion();
             
-            // check if the game is over - if it is over - show a message dialog
-            // if not - continue to the next question
-            if(gameLogic.isGameOver())
-            {
-                JOptionPane.showMessageDialog(this, "Game Over!!");
-            }
-             else
-             {
+        } else {
 
+            // this gets the current Question details
+            question = gameLogic.getCurrentQuestion();
 
-                // this gets the current Question details
-                question = gameLogic.getCurrentQuestion();
-
-                // this updates the view with the details of the new question
-                questionContent.setText(question.getQuestionString());
-                answer1.setText(question.getAnswers()[0]);
-                answer2.setText(question.getAnswers()[1]);
-                answer3.setText(question.getAnswers()[2]);
-                answer4.setText(question.getAnswers()[3]);
-                /*answer1.setSelected(false);
-                answer1.invalidate();
-                answer2.setSelected(false);
-                answer2.invalidate();
-                answer3.setSelected(false);
-                answer3.invalidate();
-                answer4.setSelected(false);
-                answer4.invalidate();
-    */
-                buttongroup.clearSelection();
-             }
-
+            // this updates the view with the details of the new question
+            questionContent.setText(question.getQuestionString());
+            answer1.setText(question.getAnswers()[0]);
+            answer2.setText(question.getAnswers()[1]);
+            answer3.setText(question.getAnswers()[2]);
+            answer4.setText(question.getAnswers()[3]);
+            
+            buttongroup.clearSelection();
+        }
     }
-
- }
+}

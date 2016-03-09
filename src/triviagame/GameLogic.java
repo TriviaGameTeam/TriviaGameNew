@@ -22,11 +22,9 @@ public class GameLogic {
         int randomNumber, i=0;
         
         // loop until you find all the questions according to the number the user chose
-        do
-        {
+        do{
             Question  ques= null;
             do{
-            
                 randomNumber = rmd.nextInt(allQuestions.size());
                 ques = allQuestions.get(randomNumber);
             } while(theQuestions.contains(ques));
@@ -38,10 +36,8 @@ public class GameLogic {
         
     }
     
-    public boolean isGameOver()
-    {
-        return (currentQuestionIndex == totalQuestions);
-            
+    public boolean isGameOver(){
+        return (currentQuestionIndex == totalQuestions);  
     }
     
     public int getCurrentQuestionIndex() { return currentQuestionIndex; }
@@ -51,5 +47,4 @@ public class GameLogic {
     {
         return theQuestions.get(currentQuestionIndex);
     }
-    
 }
