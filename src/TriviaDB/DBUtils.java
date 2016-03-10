@@ -43,10 +43,12 @@ public class DBUtils {
                 answers[2] = results.getString("answer3");
                 answers[3] = results.getString("answer4");
                 int rightAns = results.getInt("CORRECT_ANSWER");
-                Question q = new Question(question, answers, 10, rightAns);
+                int points = results.getInt("points");
+                Question q = new Question(question, answers, points, rightAns);
                 allQuestions.add(q);
                 System.out.println(question);
                 System.out.println(rightAns);
+                System.out.println(points);
             }
             results.close();
          } catch (Exception ex) {

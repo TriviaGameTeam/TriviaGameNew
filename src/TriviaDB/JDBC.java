@@ -13,7 +13,7 @@ public class JDBC {
             //load the Driver class to memory
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Scanner input = new Scanner(System.in);
-            System.out.println("Please enter ID of question, the question, 4 answers, the index of the correct answer:");
+            System.out.println("Please enter ID of question, the question, 4 answers, the index of the correct answer, and the num of points for this answer:");
             //הזנת שאלות ותשובות למאגר
             String ID = input.nextLine();
             String question = input.nextLine();
@@ -23,6 +23,7 @@ public class JDBC {
             String answer3 = input.nextLine();
             String answer4 = input.nextLine();
             String currectAnswer = input.nextLine();
+            int points = input.nextInt();
 
             Connection connection = DriverManager.getConnection(
                     DBUtils.DbUrl,
@@ -30,7 +31,7 @@ public class JDBC {
                     DBUtils.DbPassword);
 
             //הזנת שאלות לטבלה
-            PreparedStatement pstatement = connection.prepareStatement("insert into root.triviadbtest values (?,?,?,?,?,?,?,?)");
+            PreparedStatement pstatement = connection.prepareStatement("insert into root.triviadbtest values (?,?,?,?,?,?,?,?,?)");
 
             pstatement.setString(1, ID);
             pstatement.setString(2, question);
@@ -40,6 +41,7 @@ public class JDBC {
             pstatement.setString(6, answer3);
             pstatement.setString(7, answer4);
             pstatement.setString(8, currectAnswer);
+            pstatement.setInt(9, points);
 
             int result = pstatement.executeUpdate();
 

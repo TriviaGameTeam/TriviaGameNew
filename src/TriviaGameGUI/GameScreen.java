@@ -21,6 +21,7 @@ public class GameScreen extends JFrame implements ActionListener {
 
     GameLogic gameLogic;
     private JLabel questionContent = new JLabel("Here will be the Question from the DB!!");
+    private JLabel pointsMessage = new JLabel("You have   points!");
     private JButton Next = new JButton("Next");
     private JRadioButton answer1;
     private JRadioButton answer2;
@@ -42,7 +43,9 @@ public class GameScreen extends JFrame implements ActionListener {
         this.setLayout(new BorderLayout());
 
         this.add(questionContent, BorderLayout.NORTH);
+        this.add(pointsMessage,BorderLayout.EAST);
         questionContent.setFont(font);
+        pointsMessage.setFont(font);
 
         answer1 = new JRadioButton("Answer #1");
         answer2 = new JRadioButton("Answer #2");
@@ -75,6 +78,8 @@ public class GameScreen extends JFrame implements ActionListener {
         answer2.setText(question.getAnswers()[1]);
         answer3.setText(question.getAnswers()[2]);
         answer4.setText(question.getAnswers()[3]);
+        
+        pointsMessage.setText(Integer.toString(question.getPoints()+countPoints));
         addListeners();
     }
 
